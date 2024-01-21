@@ -53,4 +53,5 @@ public:
   Chord(const std::string &root, ChordType chordType, int beats);
   void write(int currentDefaultDuration, std::ostream &outStream) const;
   static Chord read(int currentDefaultDuration, std::istream &inStream);
+  std::string print() const;
 };

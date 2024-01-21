@@ -7,7 +7,8 @@
 #include "chordtype.hpp"
 #include "chunks.hpp"
 
-int main(int argc, char *argv[])
+// int main(int argc, char *argv[])
+int main()
 {
     std::cout << fmt::format("{}\n", flatten<3>({2, 3, 2}, {3, 4, 7}));
     std::cout << fmt::format("{}\n", collect<3>(35, {3, 4, 7}));
@@ -17,13 +18,14 @@ int main(int argc, char *argv[])
     writeHeader.write(headerStream);
     SectionHeader readHeader{SectionHeader::read(headerStream)};
 
-    Chord writeChord{"Ab", ChordType::min, 4};
+    Chord writeChord{"Ab", ChordType::dom7, 4};
     std::ofstream outStream{"out.tc", std::ios::binary | std::ios::out};
     writeChord.write(4, outStream);
     outStream.close();
 
     std::ifstream inStream{"out.tc", std::ios::binary | std::ios::in};
     Chord readChord{Chord::read(4, inStream)};
+    std::cout << readChord.print() << '\n';
     inStream.close();
     return 0;
 }

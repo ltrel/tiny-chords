@@ -1,4 +1,6 @@
 #pragma once
+#include <string_view>
+
 enum class ChordType
 {
   // short form
@@ -37,3 +39,5 @@ enum class ChordType
   majadd9,
   minadd9,
 };
+
+std::string_view renderChordType(ChordType chordType);

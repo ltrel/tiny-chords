@@ -2,9 +2,9 @@
 #include <vector>
 #include <array>
 #include <cstddef>
-#include <iterator>
 #include <string>
 #include <cstdint>
+#include <format>
 #include <locale>
 #include <ostream>
 #include <istream>
@@ -104,3 +104,7 @@ void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
   }
 }
 
+std::string Chord::print() const
+{
+  return std::format("{}{} : {} beats", m_root, renderChordType(m_chordType), m_beats);
+}
