@@ -3,7 +3,8 @@
 #include <fstream>
 #include <bitset>
 #include <sstream>
-#include "indexTransformations.hpp"
+#include "indextransformations.hpp"
+#include "chordtype.hpp"
 #include "chunks.hpp"
 
 int main(int argc, char *argv[])

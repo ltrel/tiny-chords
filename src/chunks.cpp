@@ -9,8 +9,9 @@
 #include <ostream>
 #include <istream>
 #include <stdexcept>
+#include "chordtype.hpp"
 #include "chunks.hpp"
-#include "indexTransformations.hpp"
+#include "indextransformations.hpp"
 
 int SectionHeader::roundTempo(int bpm)
 {
@@ -78,27 +79,27 @@ Chord Chord::read(int currentDefaultDuration, std::istream &inStream)
   {
     std::size_t combinedIndex{static_cast<std::size_t>(first >> 1)};
     std::array<size_t, 2> indices{collect<2>(combinedIndex, {7 * 3, 5})};
+    ChordType chordType{static_cast<ChordType>(indices[1])};
     std::string root{static_cast<char>(indices[0] / 3 + 'A')};
     std::size_t accidentalIndex{indices[0] % 3};
     if (accidentalIndex == 1) root.append({'b'});
     else if (accidentalIndex == 2) root.append({'#'});
-    return {root, basicChordsArray[indices[1]], currentDefaultDuration};
+    return {root, chordType, currentDefaultDuration};
   }
   return {"A", ChordType::maj, 4};
 }
 
 void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
 {
-  auto basicChordIter{std::find(basicChordsArray.begin(), basicChordsArray.end(), m_chordType)};
-  if (currentDefaultDuration == m_beats && basicChordIter != basicChordsArray.end())
+  std::size_t chordTypeIndex{static_cast<std::size_t>(m_chordType)};
+  if (currentDefaultDuration == m_beats && chordTypeIndex <= 4)
   {
-    std::size_t basicChordIndex{static_cast<std::size_t>(std::distance(basicChordsArray.begin(), basicChordIter))};
     std::size_t rootIndex{static_cast<std::size_t>((m_root[0] - 'A') * 3)};
     if (m_root.length() == 2)
     {
       rootIndex += (m_root[1] == 'b') ? 1 : 2;
     }
-    std::size_t combinedIndex{flatten<2>({rootIndex, basicChordIndex}, {7 * 3, 5})};
+    std::size_t combinedIndex{flatten<2>({rootIndex, chordTypeIndex}, {7 * 3, 5})};
     auto encoding{combinedIndex << 1};
     outStream.write(reinterpret_cast<const char*>(&encoding), 1);
   }
