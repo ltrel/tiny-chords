@@ -37,8 +37,8 @@ class SectionHeader
 
 public:
   SectionHeader(int bpm, BeatType beatType, int beatCount);
-  static SectionHeader read(uint16_t encoding);
-  uint16_t write() const;
+  static SectionHeader read(std::istream &inStream);
+  void write(std::ostream &outStream) const;
 };
 
 enum class ChordType
