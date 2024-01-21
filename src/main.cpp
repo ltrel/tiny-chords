@@ -24,5 +24,6 @@ int main(int argc, char *argv[])
 
     std::ifstream inStream{"out.tc", std::ios::binary | std::ios::in};
     Chord readChord{Chord::read(4, inStream)};
+    inStream.close();
     return 0;
 }
