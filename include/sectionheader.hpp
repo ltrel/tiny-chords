@@ -1,18 +1,7 @@
 #pragma once
-#include <vector>
-#include <ostream>
 #include <istream>
-#include <string>
-#include <cstdint>
-#include "chordtype.hpp"
-
-enum class BeatType
-{
-  half = 0,
-  quarter = 1,
-  eighth = 2,
-  sixteenth = 3,
-};
+#include <ostream>
+#include "beattype.hpp"
 
 class SectionHeader
 {
@@ -41,17 +30,4 @@ public:
   SectionHeader(int bpm, BeatType beatType, int beatCount);
   static SectionHeader read(std::istream &inStream);
   void write(std::ostream &outStream) const;
-};
-
-class Chord
-{
-  std::string m_root;
-  ChordType m_chordType;
-  int m_beats;
-
-public:
-  Chord(const std::string &root, ChordType chordType, int beats);
-  void write(int currentDefaultDuration, std::ostream &outStream) const;
-  static Chord read(int currentDefaultDuration, std::istream &inStream);
-  std::string print() const;
 };

@@ -5,7 +5,8 @@
 #include <sstream>
 #include "indextransformations.hpp"
 #include "chordtype.hpp"
-#include "chunks.hpp"
+#include "chord.hpp"
+#include "sectionheader.hpp"
 
 // int main(int argc, char *argv[])
 int main()
