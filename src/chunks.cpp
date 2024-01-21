@@ -78,10 +78,10 @@ Chord Chord::read(int currentDefaultDuration, std::istream &inStream)
   if ((first & 1) == 0)
   {
     std::size_t combinedIndex{static_cast<std::size_t>(first >> 1)};
-    std::array<size_t, 2> indices{collect<2>(combinedIndex, {7 * 3, 5})};
-    ChordType chordType{static_cast<ChordType>(indices[1])};
-    std::string root{static_cast<char>(indices[0] / 3 + 'A')};
-    std::size_t accidentalIndex{indices[0] % 3};
+    std::array<size_t, 3> indices{collect<3>(combinedIndex, {7, 3, 5})};
+    std::string root{static_cast<char>(indices[0] + 'A')};
+    std::size_t accidentalIndex{indices[1]};
+    ChordType chordType{static_cast<ChordType>(indices[2])};
     if (accidentalIndex == 1) root.append({'b'});
     else if (accidentalIndex == 2) root.append({'#'});
     return {root, chordType, currentDefaultDuration};
@@ -95,11 +95,10 @@ void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
   if (currentDefaultDuration == m_beats && chordTypeIndex <= 4)
   {
     std::size_t rootIndex{static_cast<std::size_t>((m_root[0] - 'A') * 3)};
+    std::size_t accidentalIndex{0};
     if (m_root.length() == 2)
-    {
-      rootIndex += (m_root[1] == 'b') ? 1 : 2;
-    }
-    std::size_t combinedIndex{flatten<2>({rootIndex, chordTypeIndex}, {7 * 3, 5})};
+      accidentalIndex = (m_root[1] == 'b') ? 1 : 2;
+    std::size_t combinedIndex{flatten<3>({rootIndex, accidentalIndex, chordTypeIndex}, {7, 3, 5})};
     auto encoding{combinedIndex << 1};
     outStream.write(reinterpret_cast<const char*>(&encoding), 1);
   }
