@@ -34,9 +34,12 @@ Chord::Chord(const std::string &root, ChordType chordType, int beats, const std:
   if (!bass.empty())
   {
     if (isNoteStringValid(bass))
+    {
       m_bass[0] = std::toupper(m_bass[0], std::locale());
-    else
-      throw std::invalid_argument{"bass must be a valid note with at most a single accidental"};
+      // No need to store the bass note separately if it is the root
+      if (m_bass == m_root) m_bass = "";
+    }
+    else throw std::invalid_argument{"bass must be a valid note with at most a single accidental"};
   }
 }
 
