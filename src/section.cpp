@@ -14,7 +14,6 @@ Section Section::read(std::istream &inStream)
     {
         section.chords.push_back(Chord::read(section.header.beatCount(), inStream));
     }
-    std::vector<Chord> chords{};
 
     return section;
 }
