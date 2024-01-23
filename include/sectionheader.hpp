@@ -30,4 +30,8 @@ public:
   SectionHeader(int bpm, BeatType beatType, int beatCount);
   static SectionHeader read(std::istream &inStream);
   void write(std::ostream &outStream) const;
+
+  int approxBpm() const { return m_approxBpm; }
+  BeatType beatType() const { return m_beatType; }
+  int beatCount() const { return m_beatCount; }
 };

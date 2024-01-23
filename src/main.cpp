@@ -7,6 +7,7 @@
 #include "chordtype.hpp"
 #include "chord.hpp"
 #include "sectionheader.hpp"
+#include "section.hpp"
 
 // int main(int argc, char *argv[])
 int main()
@@ -19,14 +20,33 @@ int main()
     // writeHeader.write(headerStream);
     // SectionHeader readHeader{SectionHeader::read(headerStream)};
 
-    Chord writeChord{"F#", ChordType::maj7, 4, "Ab"};
+    // Chord writeChord{"F#", ChordType::maj7, 4, "Ab"};
+    // std::ofstream outStream{"out.tc", std::ios::binary | std::ios::out};
+    // writeChord.write(4, outStream);
+    // outStream.close();
+
+    // std::ifstream inStream{"out.tc", std::ios::binary | std::ios::in};
+    // Chord readChord{Chord::read(4, inStream)};
+    // std::cout << readChord.print() << '\n';
+    // inStream.close();
+
     std::ofstream outStream{"out.tc", std::ios::binary | std::ios::out};
-    writeChord.write(4, outStream);
+    SectionHeader header{120, BeatType::quarter, 4};
+    Section section{header, {
+        {"A", ChordType::min7, header.beatCount()},
+        {"D", ChordType::dom7, header.beatCount()},
+        {"G", ChordType::maj7, header.beatCount()},
+    }};
+    section.write(outStream);
     outStream.close();
 
     std::ifstream inStream{"out.tc", std::ios::binary | std::ios::in};
-    Chord readChord{Chord::read(4, inStream)};
-    std::cout << readChord.print() << '\n';
+    Section readSection{Section::read(inStream)};
+    for (auto &chord : readSection.chords)
+    {
+        std::cout << chord.print() << '\n';
+    }
     inStream.close();
+
     return 0;
 }
