@@ -3,7 +3,7 @@
 #include <istream>
 #include <ostream>
 #include "sectionheader.hpp"
-#include "beattype.hpp"
+#include "enums.hpp"
 #include "chord.hpp"
 
 struct Section {

@@ -1,7 +1,7 @@
 #pragma once
 #include <istream>
 #include <ostream>
-#include "beattype.hpp"
+#include "enums.hpp"
 
 class SectionHeader
 {

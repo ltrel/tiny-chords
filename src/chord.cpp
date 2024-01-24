@@ -7,7 +7,7 @@
 #include <ostream>
 #include <istream>
 #include <stdexcept>
-#include "chordtype.hpp"
+#include "enums.hpp"
 #include "chord.hpp"
 #include "indextransformations.hpp"
 
@@ -107,6 +107,6 @@ void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
 std::string Chord::print() const
 {
   if (m_bass.empty())
-    return std::format("{}{} : {} beats", m_root, renderChordType(m_chordType), m_beats);
-  return std::format("{}{}/{} : {} beats", m_root, renderChordType(m_chordType), m_bass, m_beats);
+    return std::format("{}{} : {} beats", m_root, ChordTypeUtils::render(m_chordType), m_beats);
+  return std::format("{}{}/{} : {} beats", m_root, ChordTypeUtils::render(m_chordType), m_bass, m_beats);
 }

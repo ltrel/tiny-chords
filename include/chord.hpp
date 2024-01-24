@@ -3,7 +3,7 @@
 #include <istream>
 #include <array>
 #include <string>
-#include "chordtype.hpp"
+#include "enums.hpp"
 
 class Chord
 {
@@ -24,4 +24,9 @@ public:
   void write(int currentDefaultDuration, std::ostream &outStream) const;
   static Chord read(int currentDefaultDuration, std::istream &inStream);
   std::string print() const;
+
+  const std::string& root() const { return m_root; }
+  ChordType chordType() const { return m_chordType; }
+  int beats() const { return m_beats; }
+  const std::string& bass() const {return m_bass; }
 };
