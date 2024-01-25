@@ -3,14 +3,16 @@
 #include <istream>
 #include <array>
 #include <string>
+#include <optional>
 #include "enums.hpp"
+#include "note.hpp"
 
 class Chord
 {
-  std::string m_root;
+  Note m_root;
   ChordType m_chordType;
   int m_beats;
-  std::string m_bass;
+  std::optional<Note> m_bass;
 
   static constexpr int letterStateCount{7};
   static constexpr int accidentalStateCount{3};
@@ -20,13 +22,13 @@ class Chord
   static constexpr int maxShortChordIndex{letterStateCount * accidentalStateCount * shortChordTypeCount - 1};
 
 public:
-  Chord(const std::string &root, ChordType chordType, int beats, const std::string &bass = "");
+  Chord(Note root, ChordType chordType, int beats, std::optional<Note> bass = std::nullopt);
   void write(int currentDefaultDuration, std::ostream &outStream) const;
   static Chord read(int currentDefaultDuration, std::istream &inStream);
   std::string print() const;
 
-  const std::string& root() const { return m_root; }
+  Note root() const { return m_root; }
   ChordType chordType() const { return m_chordType; }
   int beats() const { return m_beats; }
-  const std::string& bass() const {return m_bass; }
+  std::optional<Note> bass() const {return m_bass; }
 };

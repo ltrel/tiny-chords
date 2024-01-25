@@ -7,10 +7,10 @@ using json = nlohmann::json;
 
 void to_json(json &j, const Chord &chord)
 {
-    j["root"] = chord.root();
+    j["root"] = chord.root().print();
     j["chordType"] = ChordTypeUtils::serialize(chord.chordType());
     j["beats"] = chord.beats();
-    if (!chord.bass().empty()) j["bass"] = chord.bass();
+    if (chord.bass().has_value()) j["bass"] = chord.bass()->print();
 }
 
 void to_json(json &j, const Section &section)

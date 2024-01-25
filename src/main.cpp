@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include "enums.hpp"
 #include "chord.hpp"
+#include "note.hpp"
 #include "sectionheader.hpp"
 #include "section.hpp"
 #include "jsonconversions.hpp"
@@ -36,9 +37,9 @@ int main()
     std::ofstream outStream{"out.tc", std::ios::binary | std::ios::out};
     SectionHeader header{120, BeatType::quarter, 4};
     Section section{header, {
-        {"A", ChordType::min7, header.beatCount()},
-        {"D", ChordType::dom7, header.beatCount()},
-        {"G", ChordType::maj7, header.beatCount()},
+        {Note("C#"), ChordType::min7, header.beatCount(), Note("E")},
+        {Note("F#"), ChordType::dom7, header.beatCount()},
+        {Note("B"), ChordType::maj7, header.beatCount()},
     }};
     std::cout << json{section}.dump(4) << '\n';
     section.write(outStream);
