@@ -5,7 +5,7 @@
 
 int parseLetter(std::string_view str)
 {
-  char val{str.at(0) - 'A'};
+  int val{str.at(0) - 'A'};
   if (val < 0 || val > 6)
     throw std::invalid_argument{"First character must be [A-G]"};
 

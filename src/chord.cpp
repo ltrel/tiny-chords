@@ -28,9 +28,9 @@ Chord Chord::read(int currentDefaultDuration, std::istream &inStream)
   // Check for slash chord prefix
   if ((current & 1) == 0 && current > (maxShortChordIndex << 1))
   {
-    std::size_t slashChordIndex{static_cast<std::size_t>((current >> 1) - (maxShortChordIndex))};
-    std::array<std::size_t, 2> indices{collect<2>(slashChordIndex, {letterStateCount, accidentalStateCount})};
-    bass = {static_cast<int>(indices[0]), static_cast<int>(indices[1])};
+    int slashChordIndex{(current >> 1) - (maxShortChordIndex)};
+    std::array<int, 2> indices{collect<2>(slashChordIndex, {letterStateCount, accidentalStateCount})};
+    bass = {indices[0], indices[1]};
     // Advance the input stream to the body of the chord
     inStream.read(reinterpret_cast<char*>(&current), 1);
   }
@@ -38,9 +38,9 @@ Chord Chord::read(int currentDefaultDuration, std::istream &inStream)
   // LSb not set means short form chord
   if ((current & 1) == 0)
   {
-    std::size_t combinedIndex{static_cast<std::size_t>(current >> 1)};
-    std::array<size_t, 3> indices{collect<3>(combinedIndex, shortChordShape)};
-    Note root{static_cast<int>(indices[0]), static_cast<int>(indices[1])};
+    int combinedIndex{current >> 1};
+    std::array<int, 3> indices{collect<3>(combinedIndex, shortChordShape)};
+    Note root{indices[0], indices[1]};
     ChordType chordType{static_cast<ChordType>(indices[2])};
     return {root, chordType, currentDefaultDuration, bass};
   }
@@ -52,19 +52,20 @@ void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
 {
   if (m_bass.has_value())
   {
-    std::size_t rootIndex{static_cast<std::size_t>(m_bass->letterIndex())};
-    std::size_t accidentalIndex{m_bass->accidentalIndex()};
-    std::size_t slashChordIndex{flatten<2>({rootIndex, accidentalIndex}, noteShape)};
+
+    int rootIndex{m_bass->letterIndex()};
+    int accidentalIndex{m_bass->accidentalIndex()};
+    int slashChordIndex{flatten<2>({rootIndex, accidentalIndex}, noteShape)};
     auto encoding{(maxShortChordIndex + slashChordIndex) << 1};
     outStream.write(reinterpret_cast<const char*>(&encoding), 1);
   }
 
-  std::size_t chordTypeIndex{static_cast<std::size_t>(m_chordType)};
+  int chordTypeIndex{static_cast<int>(m_chordType)};
   if (currentDefaultDuration == m_beats && chordTypeIndex < shortChordTypeCount)
   {
-    std::size_t rootIndex{static_cast<std::size_t>(m_root.letterIndex())};
-    std::size_t accidentalIndex{m_root.accidentalIndex()};
-    std::size_t combinedIndex{flatten<3>({rootIndex, accidentalIndex, chordTypeIndex}, shortChordShape)};
+    int rootIndex{m_root.letterIndex()};
+    int accidentalIndex{m_root.accidentalIndex()};
+    int combinedIndex{flatten<3>({rootIndex, accidentalIndex, chordTypeIndex}, shortChordShape)};
     auto encoding{combinedIndex << 1};
     outStream.write(reinterpret_cast<const char*>(&encoding), 1);
   }

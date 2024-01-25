@@ -17,8 +17,8 @@ class Chord
   static constexpr int letterStateCount{7};
   static constexpr int accidentalStateCount{3};
   static constexpr int shortChordTypeCount{5};
-  static constexpr std::array<std::size_t, 3> shortChordShape{letterStateCount, accidentalStateCount, shortChordTypeCount};
-  static constexpr std::array<std::size_t, 2> noteShape{letterStateCount, accidentalStateCount};
+  static constexpr std::array<int, 3> shortChordShape{letterStateCount, accidentalStateCount, shortChordTypeCount};
+  static constexpr std::array<int, 2> noteShape{letterStateCount, accidentalStateCount};
   static constexpr int maxShortChordIndex{letterStateCount * accidentalStateCount * shortChordTypeCount - 1};
 
 public:
