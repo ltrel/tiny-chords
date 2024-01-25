@@ -3,7 +3,7 @@
 #include "enums.hpp"
 #include "chord.hpp"
 
-using json = nlohmann::json;
+using json = nlohmann::ordered_json;
 
 void to_json(json &j, const Chord &chord)
 {

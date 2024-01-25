@@ -9,7 +9,7 @@
 #include "sectionheader.hpp"
 #include "section.hpp"
 #include "jsonconversions.hpp"
-using json = nlohmann::json;
+using json = nlohmann::ordered_json;
 
 // int main(int argc, char *argv[])
 int main()
