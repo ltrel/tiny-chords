@@ -34,4 +34,10 @@ public:
   int approxBpm() const { return m_approxBpm; }
   BeatType beatType() const { return m_beatType; }
   int beatCount() const { return m_beatCount; }
+
+  void setApproxBpm(int bpm);
+  void setBeatType(BeatType beatType) { m_beatType = beatType; }
+  void setBeatCount(int beatCount);
+
+  static void verifyBeatCount(int beatCount);
 };

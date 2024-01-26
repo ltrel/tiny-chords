@@ -9,15 +9,17 @@
 #include <stdexcept>
 #include "enums.hpp"
 #include "chord.hpp"
+#include "sectionheader.hpp"
 #include "note.hpp"
 #include "indextransformations.hpp"
 
 Chord::Chord(Note root, ChordType chordType, int beats, std::optional<Note> bass)
     : m_root{root}, m_chordType{chordType}, m_beats{beats}, m_bass{bass}
 {
-  if (beats < 1 || beats > 16)
-    throw std::invalid_argument{"beats must be in the range [1,16]"};
+  SectionHeader::verifyBeatCount(beats);
 }
+
+Chord::Chord() : m_root{Note("A")}, m_chordType{ChordType::maj}, m_beats{4}, m_bass{std::nullopt} {}
 
 Chord Chord::read(int currentDefaultDuration, std::istream &inStream)
 {
@@ -76,4 +78,10 @@ std::string Chord::print() const
   if (m_bass.has_value())
     return std::format("{}{}/{} : {} beats", m_root.print(), ChordTypeUtils::render(m_chordType), m_bass->print(), m_beats);
   return std::format("{}{} : {} beats", m_root.print(), ChordTypeUtils::render(m_chordType), m_beats);
+}
+
+void Chord::setBeats(int beats)
+{
+  SectionHeader::verifyBeatCount(beats);
+  m_beats = beats;
 }

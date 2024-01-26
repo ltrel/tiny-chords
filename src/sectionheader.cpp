@@ -5,6 +5,12 @@
 #include <istream>
 #include "sectionheader.hpp"
 
+void SectionHeader::verifyBeatCount(int beatCount)
+{
+  if (beatCount < 1 || beatCount > 16)
+    throw std::invalid_argument{"beats must be in the range [1,16]"};
+}
+
 int SectionHeader::roundTempo(int bpm)
 {
   int below{(bpm / tempoIncrement) * tempoIncrement};
@@ -16,10 +22,7 @@ int SectionHeader::roundTempo(int bpm)
 SectionHeader::SectionHeader(int bpm, BeatType beatType, int beatCount)
     : m_approxBpm{roundTempo(bpm)}, m_beatType{beatType}, m_beatCount{beatCount}
 {
-  if (m_beatCount - 1 > beatCountMask || m_beatCount < 1)
-  {
-    throw std::invalid_argument{"beatCount - 1  must fit in a 4-bit unsigned integer"};
-  }
+  verifyBeatCount(beatCount);
 };
 
 void SectionHeader::write(std::ostream &outStream) const
@@ -40,4 +43,15 @@ SectionHeader SectionHeader::read(std::istream &inStream)
   int beatCount{(encoding >> beatCountShift & beatCountMask) + 1};
 
   return SectionHeader{tempo, beatType, beatCount};
+}
+
+void SectionHeader::setApproxBpm(int bpm)
+{
+  m_approxBpm = roundTempo(bpm);
+}
+
+void SectionHeader::setBeatCount(int beatCount)
+{
+  verifyBeatCount(beatCount);
+  m_beatCount = beatCount;
 }
