@@ -1,13 +1,8 @@
 #include <iostream>
-#include <fmt/ranges.h>
+#include <format>
 #include <string_view>
 #include <fstream>
-#include <sstream>
 #include <nlohmann/json.hpp>
-#include "enums.hpp"
-#include "chord.hpp"
-#include "note.hpp"
-#include "sectionheader.hpp"
 #include "section.hpp"
 #include "jsonconversions.hpp"
 using json = nlohmann::ordered_json;
@@ -37,7 +32,7 @@ int main(int argc, char * argv[])
         section.write(outStream);
         std::streamoff byteCount{outStream.tellp()};
         outStream.close();
-        std::cout << fmt::format("Wrote {} bytes to file: {}\n", byteCount, outName);
+        std::cout << std::format("Wrote {} bytes to file: {}\n", byteCount, outName);
         return 0;
     }
 
