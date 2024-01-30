@@ -1,0 +1,23 @@
+{
+  "beatsPerBar": 4,
+  "beatType": "quarter",
+  "bpm": 120,
+  "chords": [
+    {
+        "root": "C#",
+        "chordType": "min9",
+        "beats": 3,
+        "bass": "E"
+    },
+    {
+        "root": "F#",
+        "chordType": "dom7",
+        "beats": 4
+    },
+    {
+        "root": "B",
+        "chordType": "maj7",
+        "beats": 4
+    }
+  ]
+}
