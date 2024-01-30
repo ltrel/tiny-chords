@@ -1,0 +1,72 @@
+{
+  "beatsPerBar": 4,
+  "beatType": "quarter",
+  "bpm": 160,
+  "chords": [
+    {
+      "root": "C",
+      "chordType": "min7",
+      "beats": 8
+    },
+    {
+      "root": "F",
+      "chordType": "min7",
+      "beats": 8
+    },
+    {
+      "root": "D",
+      "chordType": "min7b5",
+      "beats": 4
+    },
+    {
+      "root": "G",
+      "chordType": "dom7",
+      "beats": 4
+    },
+    {
+      "root": "C",
+      "chordType": "min7",
+      "beats": 8
+    },
+    {
+      "root": "Eb",
+      "chordType": "min7",
+      "beats": 4
+    },
+    {
+      "root": "Ab",
+      "chordType": "dom7",
+      "beats": 4
+    },
+    {
+      "root": "Db",
+      "chordType": "maj7",
+      "beats": 8
+    },
+    {
+      "root": "D",
+      "chordType": "min7b5",
+      "beats": 4
+    },
+    {
+      "root": "G",
+      "chordType": "dom7",
+      "beats": 4
+    },
+    {
+      "root": "C",
+      "chordType": "min7",
+      "beats": 4
+    },
+    {
+      "root": "D",
+      "chordType": "min7b5",
+      "beats": 2
+    },
+    {
+      "root": "G",
+      "chordType": "dom7",
+      "beats": 2
+    }
+  ]
+}
