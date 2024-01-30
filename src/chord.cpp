@@ -55,6 +55,7 @@ Chord Chord::read(int currentDefaultDuration, std::istream &inStream)
     std::array<int, 4> indices{collect<4>(combinedIndex, longChordShape)};
     Note root{indices[0], indices[1]};
     ChordType chordType{static_cast<ChordType>(indices[2])};
+    // Reverse the range shift performed during write
     int beats{indices[3] + 1};
     return {root, chordType, beats, bass};
   }
@@ -85,6 +86,7 @@ void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
   }
   else
   {
+    // Subtract one from beats since zero is not a valid duration
     int combinedIndex{flatten<4>({letterIndex, accidentalIndex, chordTypeIndex, m_beats - 1}, longChordShape)};
     // Set the LSb so the reader knows the next byte is needed
     encoding = combinedIndex << 1 | 1;

@@ -14,6 +14,7 @@ int parseLetter(std::string_view str)
 
 int parseAccidental(std::string_view str)
 {
+  // Double accidentals are not worth the trouble
   if (str.length() > 2)
     throw std::invalid_argument{"Note should be at most two characters"};
   if (str.length() == 1)

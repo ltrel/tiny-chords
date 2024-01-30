@@ -13,6 +13,7 @@ void SectionHeader::verifyBeatCount(int beatCount)
 
 int SectionHeader::roundTempo(int bpm)
 {
+  // Tempo values are fixed in a limited range with set increments to minimize possible states
   int below{(bpm / tempoIncrement) * tempoIncrement};
   int above{below + tempoIncrement};
   int closest{(above - bpm < bpm - below) ? above : below};

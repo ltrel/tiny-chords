@@ -19,6 +19,7 @@ int main(int argc, char * argv[])
     }
 
     std::string_view fileArg{argv[1]};
+    // Conversion to binary format
     if (fileArg.ends_with(".json"))
     {
         std::ifstream inStream{argv[1]};
@@ -36,6 +37,7 @@ int main(int argc, char * argv[])
         return 0;
     }
 
+    // Conversion to JSON
     if (fileArg.ends_with(".tc"))
     {
         std::ifstream inStream{argv[1]};
@@ -46,6 +48,7 @@ int main(int argc, char * argv[])
         return 0;
     }
 
+    // File extension matched neither case
     std::cout << argumentErrStr;
     return 0;
 }
