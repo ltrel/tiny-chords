@@ -46,8 +46,18 @@ Chord Chord::read(int currentDefaultDuration, std::istream &inStream)
     ChordType chordType{static_cast<ChordType>(indices[2])};
     return {root, chordType, currentDefaultDuration, bass};
   }
-  // Long form chords not implemented yet
-  return {Note("A"), ChordType::maj, 4};
+  else
+  {
+    uint8_t second{0};
+    inStream.read(reinterpret_cast<char*>(&second), 1);
+    int full{current + (second << 8)};
+    int combinedIndex{full >> 1};
+    std::array<int, 4> indices{collect<4>(combinedIndex, longChordShape)};
+    Note root{indices[0], indices[1]};
+    ChordType chordType{static_cast<ChordType>(indices[2])};
+    int beats{indices[3] + 1};
+    return {root, chordType, beats, bass};
+  }
 }
 
 void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
@@ -62,15 +72,25 @@ void Chord::write(int currentDefaultDuration, std::ostream &outStream) const
     outStream.write(reinterpret_cast<const char*>(&encoding), 1);
   }
 
+  int letterIndex{m_root.letterIndex()};
+  int accidentalIndex{m_root.accidentalIndex()};
   int chordTypeIndex{static_cast<int>(m_chordType)};
+  int encoding{};
+  int byteCount{};
   if (currentDefaultDuration == m_beats && chordTypeIndex < shortChordTypeCount)
   {
-    int rootIndex{m_root.letterIndex()};
-    int accidentalIndex{m_root.accidentalIndex()};
-    int combinedIndex{flatten<3>({rootIndex, accidentalIndex, chordTypeIndex}, shortChordShape)};
-    auto encoding{combinedIndex << 1};
-    outStream.write(reinterpret_cast<const char*>(&encoding), 1);
+    int combinedIndex{flatten<3>({letterIndex, accidentalIndex, chordTypeIndex}, shortChordShape)};
+    encoding = combinedIndex << 1;
+    byteCount = 1;
   }
+  else
+  {
+    int combinedIndex{flatten<4>({letterIndex, accidentalIndex, chordTypeIndex, m_beats - 1}, longChordShape)};
+    // Set the LSb so the reader knows the next byte is needed
+    encoding = combinedIndex << 1 | 1;
+    byteCount = 2;
+  }
+  outStream.write(reinterpret_cast<const char*>(&encoding), byteCount);
 }
 
 std::string Chord::print() const

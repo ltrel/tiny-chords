@@ -41,12 +41,42 @@ namespace ChordTypeUtils
     return map.byLeft(chordType);
   }
 
-  static constexpr BiMap<ChordType, std::string_view, 5> serializationMap{{{
+  static constexpr BiMap<ChordType, std::string_view, 27> serializationMap{{{
+      // short form
       {ChordType::maj, "maj"},
       {ChordType::min, "min"},
       {ChordType::maj7, "maj7"},
       {ChordType::min7, "min7"},
       {ChordType::dom7, "dom7"},
+      // other triads
+      {ChordType::dim, "dim"},
+      {ChordType::aug, "aug"},
+      // other sevenths
+      {ChordType::dim7, "dim7"},
+      {ChordType::min7b5, "min7b5"},
+      {ChordType::maj7s5, "maj7#5"},
+      {ChordType::aug7, "aug7"},
+      {ChordType::minmaj7, "minmaj7"},
+      // sus
+      {ChordType::sus4, "sus4"},
+      {ChordType::sus2, "sus2"},
+      // sixths
+      {ChordType::maj6, "maj6"},
+      {ChordType::min6, "min6"},
+      {ChordType::maj69, "maj69"},
+      {ChordType::min69, "min69"},
+      // ninths
+      {ChordType::maj9, "maj9"},
+      {ChordType::min9, "min9"},
+      {ChordType::dom9, "dom9"},
+      // extended
+      {ChordType::min11, "min11"},
+      {ChordType::maj7s11, "maj7#11"},
+      {ChordType::dom13, "dom13"},
+      {ChordType::alt, "alt"},
+      // add9
+      {ChordType::majadd9, "majadd9"},
+      {ChordType::minadd9, "minadd9"},
   }}};
   std::string_view serialize(ChordType chordType)
   {
