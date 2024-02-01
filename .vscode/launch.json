@@ -8,7 +8,7 @@
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceRoot}/bin/main",
+      "program": "${workspaceRoot}/build/tinychords",
       "args": ["test.json"],
       "stopAtEntry": false,
       "cwd": "${workspaceRoot}",

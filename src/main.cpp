@@ -2,7 +2,7 @@
 #include <format>
 #include <string_view>
 #include <fstream>
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 #include "section.hpp"
 #include "jsonconversions.hpp"
 using json = nlohmann::ordered_json;

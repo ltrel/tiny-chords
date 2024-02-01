@@ -1,14 +1,15 @@
+#ifdef EMSCRIPTEN
+#include <emscripten/bind.h>
+#endif
 #include <string>
 #include <algorithm>
 #include <vector>
 #include <sstream>
 #include <iterator>
-#include <emscripten/bind.h>
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 #include "section.hpp"
 #include "jsonconversions.hpp"
 using json = nlohmann::ordered_json;
-using namespace emscripten;
 
 std::string binToJson(std::vector<uint8_t> binaryData)
 {
@@ -34,8 +35,11 @@ std::vector<uint8_t> jsonToBin(std::string jsonStr)
     return vec;
 }
 
+#ifdef EMSCRIPTEN
+using namespace emscripten;
 EMSCRIPTEN_BINDINGS(my_module) {
     function("binToJson", &binToJson);
     function("jsonToBin", &jsonToBin);
     register_vector<uint8_t>("uint8vec");
 }
+#endif
