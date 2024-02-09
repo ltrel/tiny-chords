@@ -18,11 +18,11 @@ int parseAccidental(std::string_view str)
   if (str.length() > 2)
     throw std::invalid_argument{"Note should be at most two characters"};
   if (str.length() == 1)
-    return 0;
+    return 1;
   switch (str.at(1))
   {
   case 'b':
-    return 1;
+    return 0;
   case '#':
     return 2;
   default:
@@ -45,7 +45,7 @@ Note::Note(int letterIndex, int accidentalIndex)
 std::string Note::print() const
 {
   std::string ret{static_cast<char>(m_letterIndex + 'A')};
-  if (m_accidentalIndex == 1) ret += 'b';
+  if (m_accidentalIndex == 0) ret += 'b';
   else if (m_accidentalIndex == 2) ret += '#';
   return ret;
 }
