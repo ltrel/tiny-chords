@@ -1,8 +1,7 @@
 import TinyChords from "../cppbuild/tinychords";
 import { MainModule } from "../cppbuild/interface"
+import { generateBinToJson, generateJsonToBin} from "./common";
 
-const modPromise: Promise<MainModule> = TinyChords();
-export async function jsonToBin(jsonStr) {
-    const mod = await modPromise;
-    return mod.jsonToBin(jsonStr)
-}
+const wasmModPromise: Promise<MainModule> = TinyChords();
+export const binToJson = generateBinToJson(wasmModPromise);
+export const jsonToBin = generateJsonToBin(wasmModPromise);
