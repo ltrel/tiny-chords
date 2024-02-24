@@ -21,13 +21,14 @@ FetchContent_Declare(nlohmannjson
 FetchContent_MakeAvailable(nlohmannjson)
 link_libraries(nlohmann_json::nlohmann_json)
 
-if(TRUE)
+if(EMSCRIPTEN)
   set(EMSCRIPTEN_SOURCES ${COMMON_SOURCES} "src/api.cpp")
   set(EMCC_SETTINGS
     "-lembind"
     "-sENVIRONMENT=web,node"
     "-sMODULARIZE"
     "-sEXPORT_NAME=TinyChords"
+    "--closure 1"
   )
   set(WASM_SETTINGS
     ${EMCC_SETTINGS}

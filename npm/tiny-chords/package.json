@@ -1,6 +1,6 @@
 {
   "name": "tiny-chords",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The Harmonic Progression Compression Tool",
   "exports": {
     "./wasm": {
@@ -19,8 +19,7 @@
     "clean": "rimraf cppbuild dist",
     "cppbuild": "mkdirp cppbuild && cd cppbuild && emcmake cmake ../../../ && cmake --build .",
     "bundle": "tsup",
-    "build": "npm run clean && npm run cppbuild && npm run bundle",
-    "prepack": "npm run build"
+    "build": "npm run clean && npm run cppbuild && npm run bundle"
   },
   "repository": {
     "type": "git",
