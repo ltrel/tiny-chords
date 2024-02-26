@@ -14,3 +14,5 @@ public:
   int letterIndex() const { return m_letterIndex; }
   int accidentalIndex() const { return m_accidentalIndex; }
 };
+
+bool operator == (const Note &n1, const Note &n2);

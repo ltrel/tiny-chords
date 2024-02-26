@@ -45,7 +45,15 @@ Note::Note(int letterIndex, int accidentalIndex)
 std::string Note::print() const
 {
   std::string ret{static_cast<char>(m_letterIndex + 'A')};
-  if (m_accidentalIndex == 0) ret += 'b';
-  else if (m_accidentalIndex == 2) ret += '#';
+  if (m_accidentalIndex == 0)
+    ret += 'b';
+  else if (m_accidentalIndex == 2)
+    ret += '#';
   return ret;
+}
+
+bool operator==(const Note &n1, const Note &n2)
+{
+  return n1.accidentalIndex() == n2.accidentalIndex() &&
+         n1.letterIndex() == n2.letterIndex();
 }
