@@ -29,10 +29,10 @@ if(EMSCRIPTEN)
     "-sMODULARIZE"
     "-sEXPORT_NAME=TinyChords"
     "--closure 1"
+    "-sSINGLE_FILE=1"
   )
   set(WASM_SETTINGS
     ${EMCC_SETTINGS}
-    "-sSINGLE_FILE=1"
     "--embind-emit-tsd interface.d.ts"
   )
   set(NOWASM_SETTINGS
