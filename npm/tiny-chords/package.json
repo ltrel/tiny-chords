@@ -19,7 +19,8 @@
     "clean": "rimraf cppbuild dist",
     "cppbuild": "mkdirp cppbuild && cd cppbuild && emcmake cmake -DCMAKE_BUILD_TYPE=Release ../../../ && cmake --build .",
     "bundle": "tsup",
-    "build": "npm run clean && npm run cppbuild && npm run bundle"
+    "build": "npm run clean && npm run cppbuild && npm run bundle",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
